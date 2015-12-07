@@ -28,6 +28,26 @@
      (remove-duplicates (rest lst))]
     [else (cons (first lst) (remove-duplicates (rest lst)))]))
 
+; 8. Given two lists, output the items that appear in both lists (intersection).
+; Then, output the items that appear in at least one of the two
+; lists (union).
+(define (intersection-and-union lst1 lst2)
+  (append (intersection lst1 lst2) (union lst1 lst2)))
+
+(define (intersection lst1 lst2)
+  (cond
+    [(empty? lst1) '()]
+    [(member (first lst1) lst2)
+     (cons (first lst1) (intersection (rest lst1) lst2))]
+    [else (intersection (rest lst1) lst2)]))
+
+(define (union lst1 lst2)
+  (cond
+    [(empty? lst1) lst2]
+    [(member (first lst1) lst2)
+     (union (rest lst1) lst2)]
+    [else (cons (first lst1) (union (rest lst1) lst2))]))
+
 ; Look up “rest” arguments in Racket, which allow you to define functions
 ; that take in an arbitrary number of arguments, then
 ; implement a function ($$ f x1 ... xn), which is equivalent to (f x1
