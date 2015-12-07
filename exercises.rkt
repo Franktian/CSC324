@@ -111,3 +111,67 @@
       '(())
       (append (subsets (rest sets))
               (add-to-all (subsets (rest sets)) (first sets)))))
+
+; Macro
+(define-syntax list-comp
+  (syntax-rules (for in)
+    [(list-comp <expr> for <var> in <list>)
+     (map (lambda (<var>) <expr>) <list>)]
+
+    [(list-comp <expr> for <var> in <list> if <cond>)
+     (map (lambda (<var>) <expr>)
+          (filter (lambda (<var>) <cond>)
+                  <list>))]))
+
+; Hygienic macros
+(define-syntax-rule (make-adder x)
+  (lambda (y) (+ y y)))
+
+(define y 10)
+(define add-10 (make-adder y))
+
+; Macros with ellipses
+(define-syntax my-cond
+  (syntax-rules (else)
+    [(my-cond [else <val>]) <val>]
+    [(my-cond [<test> <val>] <next-pair> ...)
+     (if <test> <val> (my-cond <next-pair> ...))]))
+
+; Exercise
+(define-syntax my-mac
+  (syntax-rules ()
+    [(my-mac x) (list x x)]))
+
+; Class-based object oriented programming
+(define-syntax class
+  (syntax-rules ()
+    [(class <class-name>
+       ; This ellipsis is paired with <attr>
+       (<attr> ...)
+       ; This ellipsis is paired with <arg>
+       [(<method-name> <arg> ...) <body>]
+       ; This ellipsis is paired with the whole previous pattern
+       ...)
+     (define (<class-name> <attr> ...)
+       (lambda (msg)
+         (cond [(equal? msg (symbol->string (quote <attr>))) <attr>]
+               ...
+               ; This is the new part
+               [(equal? msg (symbol->string (quote <method-name>)))
+                (lambda (<arg> ...) <body>)]
+               ...
+               [else "Unrecognized message!"])))]))
+
+(class Point (x y)
+  [(distance other-point)
+   (let ([dx (- x (other-point "x"))]
+         [dy (- y (other-point "y"))])
+     (sqrt (+ (* dx dx) (* dy dy))))])
+
+;神代码， 卧槽，吊炸了
+(define p (Point 3 2))
+(define p2
+  (lambda (msg)
+    (cond [(equal? msg "sum-coords")
+           (+ (p2 "x") (p2 "y"))]
+          [else (p msg)])))
