@@ -68,6 +68,17 @@
       (item-in-list-helper (rest lst) item (or acc (equal? (first lst) item)))))
 ; end 16.
 
+; 17. Implement a function that takes a predicate (boolean function) and
+; a list, and returns the number of items in the list that satisfy the
+; predicate.
+(define (condition pred lst)
+  (length (filter pred lst)))
+
+; 19. Write a function that takes a list of unary functions, and a value arg,
+; and returns a list of the results of applying each function to arg.
+(define (unary lst arg)
+  (map (lambda (f) (f arg)) lst))
+
 ; Look up “rest” arguments in Racket, which allow you to define functions
 ; that take in an arbitrary number of arguments, then
 ; implement a function ($$ f x1 ... xn), which is equivalent to (f x1
