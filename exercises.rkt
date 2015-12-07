@@ -1,16 +1,26 @@
 #lang racket
 
-; Exercises from the text book page 27
+; 4. Write a function to determine the length of a list.
 (define (length-of-list lst)
   (if (empty? lst)
       0
       (+ 1 (length-of-list (rest lst)))))
 
+; 5. Write a function to determine if a given item appears in a list.
 (define (item-in-list lst item)
   (if (empty? lst)
       #f
       (or (equal? (first lst) item) (item-in-list (rest lst) item))))
 
+; 6. Write a function to determine the number of duplicates in a list.
+(define (num-duplicates lst)
+  (cond
+    [(empty? lst) 0]
+    [(member (first lst) (rest lst))
+     (+ 1 (num-duplicates (rest lst)))]
+    [else (num-duplicates (rest lst))]))
+
+; 7. Write a function to remove all duplicates from a list.
 (define (remove-duplicates lst)
   (cond
     [(empty? lst) '()]
