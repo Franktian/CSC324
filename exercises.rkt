@@ -48,6 +48,26 @@
      (union (rest lst1) lst2)]
     [else (cons (first lst1) (union (rest lst1) lst2))]))
 
+; 16. Rewrite with tail recursion
+; 4.
+(define (length-of-list-r lst)
+  (length-helper lst 0))
+
+(define (length-helper lst acc)
+  (if (empty? lst)
+      acc
+      (length-helper (rest lst) (+ acc 1))))
+
+; 5.
+(define (item-in-list-r lst item)
+  (item-in-list-helper lst item #f))
+
+(define (item-in-list-helper lst item acc)
+  (if (empty? lst)
+      acc
+      (item-in-list-helper (rest lst) item (or acc (equal? (first lst) item)))))
+; end 16.
+
 ; Look up “rest” arguments in Racket, which allow you to define functions
 ; that take in an arbitrary number of arguments, then
 ; implement a function ($$ f x1 ... xn), which is equivalent to (f x1
