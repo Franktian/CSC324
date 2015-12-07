@@ -79,6 +79,16 @@
 (define (unary lst arg)
   (map (lambda (f) (f arg)) lst))
 
+; Takes a list, and returns a new list consisting of the items in the original
+; list, but with each item repeated twice
+; > (double-all '(2 3 4 5))
+; '(2 2 3 3 4 4 5 5)
+(define (double-all lst)
+  (if (empty? lst)
+      '()
+      (let ([x (first lst)])
+        (append (list x x) (double-all (rest lst))))))
+
 ; Look up “rest” arguments in Racket, which allow you to define functions
 ; that take in an arbitrary number of arguments, then
 ; implement a function ($$ f x1 ... xn), which is equivalent to (f x1
