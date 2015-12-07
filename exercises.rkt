@@ -89,6 +89,25 @@
       (let ([x (first lst)])
         (append (list x x) (double-all (rest lst))))))
 
+; 21. Implement map and filter using foldr
+(define (my-map f lst)
+  (reverse
+   (foldl (lambda (ele acc) (cons (f ele) acc)) '() lst)))
+
+(define (my-filter f lst)
+  (reverse
+   (foldl (lambda (ele acc)
+            (if (f ele)
+                (cons ele acc)
+                acc)) '() lst)))
+
+; 22.
+(define (my-foldr combine init lst)
+  (if (empty? lst)
+      init
+      (combine (first lst)
+               (my-foldr combine init (rest lst)))))
+
 ; Look up “rest” arguments in Racket, which allow you to define functions
 ; that take in an arbitrary number of arguments, then
 ; implement a function ($$ f x1 ... xn), which is equivalent to (f x1
