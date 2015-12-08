@@ -108,7 +108,7 @@
       (combine (first lst)
                (my-foldr combine init (rest lst)))))
 
-; Look up “rest” arguments in Racket, which allow you to define functions
+; 23 .Look up “rest” arguments in Racket, which allow you to define functions
 ; that take in an arbitrary number of arguments, then
 ; implement a function ($$ f x1 ... xn), which is equivalent to (f x1
 ; ... xn)
@@ -116,12 +116,12 @@
   (lambda arguments
     (apply (first arguments) (rest arguments))))
 
-; Write a function that takes a single argument x, and returns a new
+; 24. Write a function that takes a single argument x, and returns a new
 ; function which takes a list and checks whether x is in that list or not
 (define (check-in-list x)
   (lambda (lst) (member x lst)))
 
-; Write a function that takes a unary function and a positive integer n,
+; 25. Write a function that takes a unary function and a positive integer n,
 ; and returns a new unary function that applies the function to its argument
 ; n times
 (define (apply-n-times f n)
@@ -132,7 +132,7 @@
 
 (define 2-sqr (apply-n-times sqr 2))
 
-; Write a function flip that takes a binary function f, and returns a
+; 26. Write a function flip that takes a binary function f, and returns a
 ; new binary function g such that (g x y) = (f y x) for all valid
 ; arguments x and y.
 (define (flip f)
@@ -140,7 +140,7 @@
 
 (define flip-minus (flip -))
 
-; Write a function that takes two unary functions f and g, and returns
+; 27. Write a function that takes two unary functions f and g, and returns
 ; a new unary function that always returns the max of f ang g applied
 ; to its argument
 (define (max-unary f g)
