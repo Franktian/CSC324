@@ -8,21 +8,14 @@
      (* 3 4))
    (first '(1 2 3)))
 
-;Write a macro that behaves like let/cc,except it binds
+; Write a macro that behaves like let/cc,except it binds
 ; the current continutation to a global name using set!
-;
-;
-;
-;
 (define-syntax set!/cc
   (syntax-rules ()
     [(set!cc <global-cont> <expr>)
      (let/cc cont
        (set! <global-cont> cont)
        <expr>)]))
-
-(define yoyo (void))
-(+ 3 (set!/cc yoyo (* 2 6)))
 
 ; Define a name raise, which, when called on a string,
 ; causes the program to halt and return that string.
