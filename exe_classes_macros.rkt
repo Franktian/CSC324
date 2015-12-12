@@ -36,3 +36,12 @@
                 (lambda (<param> ...) <body>)]
                ...
                [else "Attribute error"])))]))
+
+(define-syntax extract-private
+  (syntax-rules (private)
+    [(extract-private () <acc>) <acc>]
+    [(extract-private ((private <id>) <other-ids> ...) (<acc-ids> ...))
+     (extract-private (<other-ids> ...) (<acc-ids> ... <id>))]
+
+    [(extract-private (<non-private> <other-ids> ...) (<acc-ids> ...))
+     (extract-private (<other-ids> ...) (<acc-ids> ...))]))
