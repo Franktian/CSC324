@@ -199,8 +199,8 @@
 (define (subsets-helper sets)
   (if (empty? sets)
       '(())
-      (append (subsets (rest sets))
-              (add-to-all (subsets (rest sets)) (first sets)))))
+      (append (subsets-helper (rest sets))
+              (add-to-all (subsets-helper (rest sets)) (first sets)))))
 
 ; Macro
 (define-syntax list-comp
@@ -265,3 +265,12 @@
     (cond [(equal? msg "sum-coords")
            (+ (p2 "x") (p2 "y"))]
           [else (p msg)])))
+
+; Continuation
+(define global-cont (void))
+
+(+ (* 3
+      (let/cc cont
+        (set! global-cont cont)
+        4))
+   (first '(1 2 3)))
